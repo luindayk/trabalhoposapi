@@ -44,23 +44,19 @@ tags:
 - name: telefones
   description: Telefones
 paths:
-  /pet:
-    put:
+  /combustiveis:
+    get:
       tags:
-      - pet
-      summary: Update an existing pet
-      operationId: updatePet
-      requestBody:
-        description: Pet object that needs to be added to the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-        required: true
+      - combustiveis
+      summary: Retorna todos os tipos de combustíveis cadastrados
+      operationId: getCombustiveis
       responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
         400:
           description: Invalid ID supplied
           content: {}
@@ -76,8 +72,8 @@ paths:
         - read:pets
     post:
       tags:
-      - pet
-      summary: Add a new pet to the store
+      - combustiveis
+      summary: Adiciona um novo tipo de combustível
       operationId: addPet
       requestBody:
         description: Pet object that needs to be added to the store
