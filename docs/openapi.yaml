@@ -48,39 +48,129 @@ paths:
     get:
       tags:
       - combustiveis
-      summary: Retorna todos os tipos de combustíveis cadastrados
+      summary: Retorna os tipos de combustíveis cadastrados
       operationId: getCombustiveis
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: Filtrar pelo id do combustível
+        - in: query
+          name: nome
+          schema:
+            type: string
+          description: Filtrar pelo nome do combustível
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-      security:
-      - petstore_auth:
-        - write:combustiveis
-        - read:combustiveis
+                $ref: '#/components/schemas/Combustivel'
+        404:
+          description: Nenhum combustível encontrado
+          content: {}
     post:
       tags:
       - combustiveis
       summary: Adiciona um novo tipo de combustível
       operationId: addCombustivel
       requestBody:
-        description: Nome do combustivel a ser cadastrado
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: '#/components/schemas/Combustivel'
         required: true
       responses:
-        405:
-          description: Invalid input
+        200:
+          description: Combustível cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Combustivel'
+        400:
+          description: Verifique os campos e tente novamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /combustiveis/{id}:
+    put:
+      tags:
+      - combustiveis
+      summary: Atualizar um tipo de combustível
+      operationId: updateCombustivel
+      parameters:
+      - name: id
+        in: path
+        description: name that need to be updated
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Combustivel'
+        required: true
+      responses:
+        200:
+          description: Combustível atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Combustivel'
+        400:
+          description: Verifique os campos e tente novamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /carros:
+    get:
+      tags:
+      - carros
+      summary: Retorna os carros cadastrados
+      operationId: getCarros
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Carro'
+        400:
+          description: Invalid status value
           content: {}
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
   /pet/findByStatus:
     get:
       tags:
@@ -585,13 +675,199 @@ paths:
           content: {}
 components:
   schemas:
+    Combustivel:
+      required:
+        - nome
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    Carro:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        placa:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: integer
+          format: int32
+        cor:
+          type: string
+        descricao:
+          type: string
+        combustivel:
+          $ref: '#/components/schemas/Combustivel'
+        classe:
+          $ref: '#/components/schemas/Classe'
+        marca:
+          $ref: '#/components/schemas/Marca'
+        filial:
+          $ref: '#/components/schemas/Filial'
+    Classe:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    Filial:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        endereco:
+          $ref: '#/components/schemas/Endereco'
+    Marca:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    Telefone:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        numero:
+          type: string
+    TipoPessoa:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    GrupoPessoa:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    Status:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+    Endereco:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cep:
+          type: string
+        bairro:
+          type: string
+        numero:
+          type: string
+        cidade:
+          type: string
+        estado:
+          type: string
+    Promocao:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        percentual:
+          type: number
+          format: float
+        data_inicial:
+          type: string
+          format: date-time
+        data_final:
+          type: string
+          format: date-time
+    Politica:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tempo_permanencia:
+          type: integer
+          format: int32
+        preco:
+          $ref: '#/components/schemas/Preco'
+    Preco:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        classe:
+          $ref: '#/components/schemas/Classe'
+        promocao:
+          $ref: '#/components/schemas/Promocao'
+    Pessoa:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cnh:
+          type: string
+        tipo:
+          $ref: '#/components/schemas/TipoPessoa'
+        grupo:
+          $ref: '#/components/schemas/GrupoPessoa'
+        enderecos:
+          $ref: '#/components/schemas/Endereco'
+        telefones:
+          $ref: '#/components/schemas/Telefone'
+    Locacao:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        data_retirada:
+          type: string
+          format: date-time
+        data_devolucao:
+          type: string
+          format: date-time
+        local_retirada:
+          $ref: '#/components/schemas/Endereco'
+        local_devolucao:
+          $ref: '#/components/schemas/Endereco'
+        status:
+          $ref: '#/components/schemas/Status'
+        pessoa:
+          $ref: '#/components/schemas/Pessoa'
+        carro:
+          $ref: '#/components/schemas/Carro'
+        politica:
+          $ref: '#/components/schemas/Politica'
+
     Order:
       type: object
       properties:
         id:
           type: integer
           format: int64
-        petId:
+        name:
           type: integer
           format: int64
         quantity:
