@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: API Locações
+  title: API LocaÃ§Ãµes
   description: 'Bla Bla Bla'
   termsOfService: http://swagger.io/terms/
   contact:
@@ -14,7 +14,7 @@ servers:
 - url: https://api.locacao.io/v1
 tags:
 - name: combustiveis
-  description: Tipos de combustíveis
+  description: Tipos de combustÃ­veis
 - name: carros
   description: Carros cadastrados
 - name: classes
@@ -30,17 +30,17 @@ tags:
 - name: grupos
   description: Grupos de Pessoas
 - name: locacoes
-  description: Locações
+  description: LocaÃ§Ãµes
 - name: status
-  description: Status das locações
+  description: Status das locaÃ§Ãµes
 - name: precos
-  description: Preços das locações
+  description: PreÃ§os das locaÃ§Ãµes
 - name: politicas
-  description: Políticas de preços/locações
+  description: PolÃ­ticas de preÃ§os/locaÃ§Ãµes
 - name: promocoes
-  description: Promoções
+  description: PromoÃ§Ãµes
 - name: enderecos
-  description: Endereços
+  description: EndereÃ§os
 - name: telefones
   description: Telefones
 paths:
@@ -48,29 +48,29 @@ paths:
     get:
       tags:
       - combustiveis
-      summary: Retorna os tipos de combustíveis cadastrados
+      summary: Retorna os tipos de combustÃ­veis cadastrados
       operationId: getCombustiveis
       parameters:
         - in: query
           name: id
           schema:
             type: string
-          description: Filtrar pelo id do combustível
+          description: Filtrar pelo id do combustÃ­vel
         - in: query
           name: nome
           schema:
             type: string
-          description: Filtrar pelo nome do combustível
+          description: Filtrar pelo nome do combustÃ­vel
         - in: query
           name: offset
           schema:
             type: integer
-          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+          description: O nÃºmero de itens a serem ignorados antes de comeÃ§ar a coletar o conjunto de resultados
         - in: query
           name: limit
           schema:
             type: integer
-          description: Número de itens a serem retornados
+          description: NÃºmero de itens a serem retornados
       responses:
         200:
           description: status ok
@@ -79,12 +79,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Combustivel'
         404:
-          description: Nenhum combustível encontrado
+          description: Nenhum combustÃ­vel encontrado
           content: {}
     post:
       tags:
       - combustiveis
-      summary: Adiciona um novo tipo de combustível
+      summary: Adiciona um novo tipo de combustÃ­vel
       operationId: addCombustivel
       requestBody:
         content:
@@ -94,7 +94,7 @@ paths:
         required: true
       responses:
         200:
-          description: Combustível cadastrado com sucesso
+          description: CombustÃ­vel cadastrado com sucesso
           content:
             application/json:
               schema:
@@ -109,7 +109,7 @@ paths:
     put:
       tags:
       - combustiveis
-      summary: Atualizar um tipo de combustível
+      summary: Atualizar um tipo de combustÃ­vel
       operationId: updateCombustivel
       parameters:
       - name: id
@@ -126,7 +126,7 @@ paths:
         required: true
       responses:
         200:
-          description: Combustível atualizado com sucesso
+          description: CombustÃ­vel atualizado com sucesso
           content:
             application/json:
               schema:
@@ -175,19 +175,19 @@ paths:
     get:
       tags:
       - enderecos
-      summary: Retorna os endereços cadastrados
+      summary: Retorna os endereÃ§os cadastrados
       operationId: getEnderecos
       parameters:
         - in: query
           name: offset
           schema:
             type: integer
-          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+          description: O nÃºmero de itens a serem ignorados antes de comeÃ§ar a coletar o conjunto de resultados
         - in: query
           name: limit
           schema:
             type: integer
-          description: Número de itens a serem retornados
+          description: NÃºmero de itens a serem retornados
       responses:
         200:
           description: pesquisa realizada com sucesso
@@ -198,7 +198,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Endereco'
         404:
-          description: Nenhum endereço encontrado
+          description: Nenhum endereÃ§o encontrado
           content: 
             application/json:
               schema:
@@ -206,11 +206,11 @@ paths:
     post:
       tags:
       - enderecos
-      summary: Cria um endereço
-      description: Cria o endereço na base de dados.
+      summary: Cria um endereÃ§o
+      description: Cria o endereÃ§o na base de dados.
       operationId: createEndereco
       requestBody:
-        description: Objeto de endereço
+        description: Objeto de endereÃ§o
         content:
           application/json::
             schema:
@@ -218,19 +218,19 @@ paths:
         required: true
       responses:
         200:
-          description: Endereço criado com sucesso
+          description: EndereÃ§o criado com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Endereco'
         400:
-          description: Erro ao inserir endereço
+          description: Erro ao inserir endereÃ§o
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -239,7 +239,7 @@ paths:
     get:
       tags:
       - enderecos
-      summary: Retorna o endereço com o Id informado
+      summary: Retorna o endereÃ§o com o Id informado
       operationId: getEndereco
       parameters:
       - name: id
@@ -256,13 +256,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Endereco'
         404:
-          description: Nenhum endereço encontrado para o Id informado
+          description: Nenhum endereÃ§o encontrado para o Id informado
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -270,12 +270,12 @@ paths:
     put:
       tags:
       - enderecos
-      summary: Atualizar os dados do endereço
+      summary: Atualizar os dados do endereÃ§o
       operationId: updateEndereco
       parameters:
       - name: id
         in: path
-        description: Id do endereço que irá ser alterado
+        description: Id do endereÃ§o que irÃ¡ ser alterado
         required: true
         schema:
           type: number
@@ -287,25 +287,25 @@ paths:
         required: true
       responses:
         200:
-          description: Endereço atualizado com sucesso
+          description: EndereÃ§o atualizado com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Endereco'
         400:
-          description: Erro ao atualizar endereço
+          description: Erro ao atualizar endereÃ§o
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhum endereço encontrado
+          description: Nenhum endereÃ§o encontrado
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -313,32 +313,32 @@ paths:
     delete:
       tags:
       - enderecos
-      summary: Exclui o endereço com o Id informado
+      summary: Exclui o endereÃ§o com o Id informado
       operationId: deleteEndereco
       parameters:
       - name: id
         in: path
-        description: Id do endereço que irá ser excluído
+        description: Id do endereÃ§o que irÃ¡ ser excluÃ­do
         required: true
         schema:
           type: number
       responses:
         200:
-          description: Endereço excluído com sucesso
+          description: EndereÃ§o excluÃ­do com sucesso
         400:
-          description: Erro ao excluir endereço
+          description: Erro ao excluir endereÃ§o
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhum endereço encontrado
+          description: Nenhum endereÃ§o encontrado
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -347,19 +347,19 @@ paths:
     get:
       tags:
       - promocoes
-      summary: Retorna as promoções cadastrados
+      summary: Retorna as promoÃ§Ãµes cadastrados
       operationId: getPromocoes
       parameters:
         - in: query
           name: offset
           schema:
             type: integer
-          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+          description: O nÃºmero de itens a serem ignorados antes de comeÃ§ar a coletar o conjunto de resultados
         - in: query
           name: limit
           schema:
             type: integer
-          description: Número de itens a serem retornados
+          description: NÃºmero de itens a serem retornados
       responses:
         200:
           description: pesquisa realizada com sucesso
@@ -370,7 +370,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Promocao'
         404:
-          description: Nenhuma promoção encontrada
+          description: Nenhuma promoÃ§Ã£o encontrada
           content: 
             application/json:
               schema:
@@ -378,11 +378,11 @@ paths:
     post:
       tags:
       - promocoes
-      summary: Cria uma promoção 
-      description: Cria a promoção  na base de dados.
+      summary: Cria uma promoÃ§Ã£o 
+      description: Cria a promoÃ§Ã£o  na base de dados.
       operationId: createPromocao
       requestBody:
-        description: Objeto de promoção
+        description: Objeto de promoÃ§Ã£o
         content:
           application/json::
             schema:
@@ -390,19 +390,19 @@ paths:
         required: true
       responses:
         200:
-          description: Promoção criada com sucesso
+          description: PromoÃ§Ã£o criada com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Promocao'
         400:
-          description: Erro ao inserir Promoção
+          description: Erro ao inserir PromoÃ§Ã£o
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -411,7 +411,7 @@ paths:
     get:
       tags:
       - promocoes
-      summary: Retorna a promoção com o Id informado
+      summary: Retorna a promoÃ§Ã£o com o Id informado
       operationId: getPromocao
       parameters:
       - name: id
@@ -428,13 +428,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Promocao'
         404:
-          description: Nenhuma promoção encontrada para o Id informado
+          description: Nenhuma promoÃ§Ã£o encontrada para o Id informado
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -442,12 +442,12 @@ paths:
     put:
       tags:
       - promocoes
-      summary: Atualizar os dados da promoção
+      summary: Atualizar os dados da promoÃ§Ã£o
       operationId: updatePromocao
       parameters:
       - name: id
         in: path
-        description: Id da promoção que irá ser alterado
+        description: Id da promoÃ§Ã£o que irÃ¡ ser alterado
         required: true
         schema:
           type: number
@@ -459,25 +459,25 @@ paths:
         required: true
       responses:
         200:
-          description: Promoção  atualizada com sucesso
+          description: PromoÃ§Ã£o  atualizada com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Promocao'
         400:
-          description: Erro ao atualizar promoção 
+          description: Erro ao atualizar promoÃ§Ã£o 
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhuma promoção encontrada
+          description: Nenhuma promoÃ§Ã£o encontrada
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -485,32 +485,32 @@ paths:
     delete:
       tags:
       - promocoes
-      summary: Exclui a promoção com o Id informado
+      summary: Exclui a promoÃ§Ã£o com o Id informado
       operationId: deletePromocao
       parameters:
       - name: id
         in: path
-        description: Id da promoção  que irá ser excluída
+        description: Id da promoÃ§Ã£o  que irÃ¡ ser excluÃ­da
         required: true
         schema:
           type: number
       responses:
         200:
-          description: Promoção excluída com sucesso
+          description: PromoÃ§Ã£o excluÃ­da com sucesso
         400:
-          description: Erro ao excluir promoção 
+          description: Erro ao excluir promoÃ§Ã£o 
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhuma promoção encontrada
+          description: Nenhuma promoÃ§Ã£o encontrada
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -526,12 +526,12 @@ paths:
           name: offset
           schema:
             type: integer
-          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+          description: O nÃºmero de itens a serem ignorados antes de comeÃ§ar a coletar o conjunto de resultados
         - in: query
           name: limit
           schema:
             type: integer
-          description: Número de itens a serem retornados
+          description: NÃºmero de itens a serem retornados
       responses:
         200:
           description: pesquisa realizada com sucesso
@@ -600,7 +600,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -613,7 +613,7 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id do telefone que irá ser modificado
+        description: Id do telefone que irÃ¡ ser modificado
         required: true
         schema:
           type: number
@@ -643,7 +643,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
@@ -656,13 +656,13 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id do telefone que irá ser excluido
+        description: Id do telefone que irÃ¡ ser excluido
         required: true
         schema:
           type: number
       responses:
         200:
-          description: Telefone excluído com sucesso
+          description: Telefone excluÃ­do com sucesso
           content: {}
         400:
           description: Erro ao excluir telefone
@@ -677,7 +677,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         500:
-          description: Erro interno não identificado
+          description: Erro interno nÃ£o identificado
           content:
             application/json:
               schema:
