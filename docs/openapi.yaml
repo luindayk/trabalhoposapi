@@ -171,6 +171,178 @@ paths:
         400:
           description: Invalid status value
           content: {}
+  /enderecos:
+    get:
+      tags:
+      - enderecos
+      summary: Retorna os endereços cadastrados
+      operationId: getEnderecos
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Endereco'
+        404:
+          description: Nenhum endereço encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - enderecos
+      summary: Cria um endereço
+      description: Cria o endereço na base de dados.
+      operationId: createEndereco
+      requestBody:
+        description: Objeto de endereço
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Endereco'
+        required: true
+      responses:
+        200:
+          description: Endereço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endereco'
+        400:
+          description: Erro ao inserir endereço
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /enderecos/{id}:
+    get:
+      tags:
+      - enderecos
+      summary: Retorna o endereço com o Id informado
+      operationId: getEndereco
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endereco'
+        404:
+          description: Nenhum endereço encontrado para o Id informado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - enderecos
+      summary: Atualizar os dados do endereço
+      operationId: updateEndereco
+      parameters:
+      - name: id
+        in: path
+        description: Id do endereço que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Endereco'
+        required: true
+      responses:
+        200:
+          description: Endereço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endereco'
+        400:
+          description: Erro ao atualizar endereço
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum endereço encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - enderecos
+      summary: Exclui o endereço com o Id informado
+      operationId: deleteEndereco
+      parameters:
+      - name: id
+        in: path
+        description: Id do endereço que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Endereço excluído com sucesso
+        400:
+          description: Erro ao excluir endereço
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum endereço encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /telefones:
     get:
       tags:
@@ -194,7 +366,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Telefone'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Telefone'
         404:
           description: Nenhum telefone encontrado
           content: 
