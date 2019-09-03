@@ -171,6 +171,171 @@ paths:
         400:
           description: Invalid status value
           content: {}
+  /telefones:
+    get:
+      tags:
+      - telefones
+      summary: Retorna os telefones cadastrados
+      operationId: getTelefones
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telefone'
+        404:
+          description: Nenhum telefone encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - telefones
+      summary: Cria um telefone
+      description: Cria o telefone na base de dados.
+      operationId: createTelefone
+      requestBody:
+        description: Objeto de telefone
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Telefone'
+        required: true
+      responses:
+        200:
+          description: Telefone criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telefone'
+        400:
+          description: Erro ao inserir telefone
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /telefones/{id}:
+    get:
+      tags:
+      - telefones
+      summary: Retorna o telefone com o Id informado
+      operationId: getTelefone
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telefone'
+        404:
+          description: Nenhum telefone encontrado para o Id informado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - telefones
+      summary: Atualizar o numero do telefone
+      operationId: updateTelefone
+      parameters:
+      - name: id
+        in: path
+        description: Id do telefone que irá ser modificado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Telefone'
+        required: true
+      responses:
+        200:
+          description: Telefone atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telefone'
+        400:
+          description: Erro ao atualizar Telefone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum telefone encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - telefones
+      summary: Exclui o telefone com o Id informado
+      operationId: deleteTelefone
+      parameters:
+      - name: id
+        in: path
+        description: Id do telefone que irá ser excluido
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Telefone excluído com sucesso
+          content: {}
+        400:
+          description: Erro ao excluir telefone
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum telefone encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /pet/findByStatus:
     get:
       tags:
