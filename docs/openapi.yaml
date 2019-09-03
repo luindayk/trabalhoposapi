@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: API LocaÃ§Ãµes
+  title: API Locações
   description: 'Bla Bla Bla'
   termsOfService: http://swagger.io/terms/
   contact:
@@ -14,7 +14,7 @@ servers:
 - url: https://api.locacao.io/v1
 tags:
 - name: combustiveis
-  description: Tipos de combustÃ­veis
+  description: Tipos de combustíveis
 - name: carros
   description: Carros cadastrados
 - name: classes
@@ -30,17 +30,17 @@ tags:
 - name: grupos
   description: Grupos de Pessoas
 - name: locacoes
-  description: LocaÃ§Ãµes
+  description: Locações
 - name: status
-  description: Status das locaÃ§Ãµes
+  description: Status das locações
 - name: precos
-  description: PreÃ§os das locaÃ§Ãµes
+  description: Preços das locações
 - name: politicas
-  description: PolÃ­ticas de preÃ§os/locaÃ§Ãµes
+  description: Políticas de preços/locações
 - name: promocoes
-  description: PromoÃ§Ãµes
+  description: Promoções
 - name: enderecos
-  description: EndereÃ§os
+  description: Endereços
 - name: telefones
   description: Telefones
 paths:
@@ -48,29 +48,29 @@ paths:
     get:
       tags:
       - combustiveis
-      summary: Retorna os tipos de combustÃ­veis cadastrados
+      summary: Retorna os tipos de combustíveis cadastrados
       operationId: getCombustiveis
       parameters:
         - in: query
           name: id
           schema:
             type: string
-          description: Filtrar pelo id do combustÃ­vel
+          description: Filtrar pelo id do combustível
         - in: query
           name: nome
           schema:
             type: string
-          description: Filtrar pelo nome do combustÃ­vel
+          description: Filtrar pelo nome do combustível
         - in: query
           name: offset
           schema:
             type: integer
-          description: O nÃºmero de itens a serem ignorados antes de comeÃ§ar a coletar o conjunto de resultados
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
         - in: query
           name: limit
           schema:
             type: integer
-          description: NÃºmero de itens a serem retornados
+          description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
@@ -79,12 +79,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Combustivel'
         404:
-          description: Nenhum combustÃ­vel encontrado
+          description: Nenhum combustível encontrado
           content: {}
     post:
       tags:
       - combustiveis
-      summary: Adiciona um novo tipo de combustÃ­vel
+      summary: Adiciona um novo tipo de combustível
       operationId: addCombustivel
       requestBody:
         content:
@@ -94,7 +94,7 @@ paths:
         required: true
       responses:
         200:
-          description: CombustÃ­vel cadastrado com sucesso
+          description: Combustível cadastrado com sucesso
           content:
             application/json:
               schema:
@@ -109,7 +109,7 @@ paths:
     put:
       tags:
       - combustiveis
-      summary: Atualizar um tipo de combustÃ­vel
+      summary: Atualizar um tipo de combustível
       operationId: updateCombustivel
       parameters:
       - name: id
@@ -126,7 +126,7 @@ paths:
         required: true
       responses:
         200:
-          description: CombustÃ­vel atualizado com sucesso
+          description: Combustível atualizado com sucesso
           content:
             application/json:
               schema:
@@ -333,6 +333,178 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhum endereço encontrado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /promocoes:
+    get:
+      tags:
+      - promocoes
+      summary: Retorna as promoções cadastrados
+      operationId: getPromocoes
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+               schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Promocao'
+        404:
+          description: Nenhuma promoção encontrada
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - promocoes
+      summary: Cria uma promoção 
+      description: Cria a promoção  na base de dados.
+      operationId: createPromocao
+      requestBody:
+        description: Objeto de promoção
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Promocao'
+        required: true
+      responses:
+        200:
+          description: Promoção criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        400:
+          description: Erro ao inserir Promoção
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /promocoes/{id}:
+    get:
+      tags:
+      - promocoes
+      summary: Retorna a promoção com o Id informado
+      operationId: getPromocao
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        404:
+          description: Nenhuma promoção encontrada para o Id informado
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - promocoes
+      summary: Atualizar os dados da promoção
+      operationId: updatePromocao
+      parameters:
+      - name: id
+        in: path
+        description: Id da promoção que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Promocao'
+        required: true
+      responses:
+        200:
+          description: Promoção  atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        400:
+          description: Erro ao atualizar promoção 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma promoção encontrada
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - promocoes
+      summary: Exclui a promoção com o Id informado
+      operationId: deletePromocao
+      parameters:
+      - name: id
+        in: path
+        description: Id da promoção  que irá ser excluída
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Promoção excluída com sucesso
+        400:
+          description: Erro ao excluir promoção 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma promoção encontrada
           content: 
             application/json:
               schema:
