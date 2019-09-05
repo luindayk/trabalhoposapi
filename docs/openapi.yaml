@@ -68,7 +68,7 @@ paths:
           description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
@@ -152,7 +152,7 @@ paths:
       parameters:
       - name: id
         in: path
-        description: name that need to be updated
+        description: Id do combustível que irá ser atualizado
         required: true
         schema:
           type: string
@@ -189,7 +189,7 @@ paths:
           type: number
       responses:
         200:
-          description: Endereço combustível com sucesso
+          description: Combustível deletado com sucesso
         400:
           description: Erro ao excluir combustível
           content:
@@ -215,21 +215,31 @@ paths:
       summary: Retorna os carros cadastrados
       operationId: getCarros
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
+      - in: query
+        name: nome
         schema:
-          type: array
-          items:
-            type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          type: string
+        description: Filtrar pelo nome do carro
+      - in: query
+        name: marca
+        schema:
+          type: string
+        description: Filtrar pela marca do carro
+      - in: query
+        name: classe
+        schema:
+          type: string
+        description: Filtrar pela classe do carro
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
@@ -395,21 +405,21 @@ paths:
       summary: Retorna as classes de carros cadastradas
       operationId: getClasses
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nome
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar pelo nome da classe
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
@@ -575,21 +585,21 @@ paths:
       summary: Retorna as marcas de carros cadastradas
       operationId: getMarcas
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
+      - in: query
+        name: nome
         schema:
-          type: array
-          items:
-            type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          type: string
+        description: Filtrar pelo nome da marca
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
@@ -755,21 +765,21 @@ paths:
       summary: Retorna as filiais cadastradas
       operationId: getFiliais
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
+      - in: query
+        name: nome
         schema:
-          type: array
-          items:
-            type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          type: string
+        description: Filtrar pelo nome da filial
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Número de itens a serem retornados
       responses:
         200:
           description: status ok
