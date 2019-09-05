@@ -52,11 +52,6 @@ paths:
       operationId: getCombustiveis
       parameters:
         - in: query
-          name: id
-          schema:
-            type: string
-          description: Filtrar pelo id do combustível
-        - in: query
           name: nome
           schema:
             type: string
@@ -81,6 +76,12 @@ paths:
         404:
           description: Nenhum combustível encontrado
           content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
     post:
       tags:
       - combustiveis
@@ -105,7 +106,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /combustiveis/{id}:
+    get:
+      tags:
+      - combustiveis
+      summary: Retorna o combustível com o Id informado
+      operationId: getCombustivel
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Combustivel'
+        404:
+          description: Nenhum endereço encontrado para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
     put:
       tags:
       - combustiveis
@@ -133,6 +171,39 @@ paths:
                 $ref: '#/components/schemas/Combustivel'
         400:
           description: Verifique os campos e tente novamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - combustiveis
+      summary: Exclui o combustível com o Id informado
+      operationId: deleteCombustivel
+      parameters:
+      - name: id
+        in: path
+        description: Id do combustível que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Endereço combustível com sucesso
+        400:
+          description: Erro ao excluir combustível
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum combustível encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
           content:
             application/json:
               schema:
@@ -171,6 +242,1952 @@ paths:
         400:
           description: Invalid status value
           content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - carros
+      summary: Cria um carro
+      description: Cria o carro na base de dados.
+      operationId: createCarro
+      requestBody:
+        description: Objeto carro
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Carro'
+        required: true
+      responses:
+        200:
+          description: Carro criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carro'
+        400:
+          description: Erro ao inserir carro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /carros/{id}:
+    get:
+      tags:
+      - carros
+      summary: Retorna o carro com o Id informado
+      operationId: getCarro
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carro'
+        404:
+          description: Nenhum carro encontrado para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - carros
+      summary: Atualizar os dados do carro
+      operationId: updateCarro
+      parameters:
+      - name: id
+        in: path
+        description: Id do carro que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carro'
+        required: true
+      responses:
+        200:
+          description: Carro atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carro'
+        400:
+          description: Erro ao atualizar carro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum carro encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - carros
+      summary: Exclui o carro com o Id informado
+      operationId: deleteCarro
+      parameters:
+      - name: id
+        in: path
+        description: Id do carro que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Carro excluído com sucesso
+        400:
+          description: Erro ao excluir carro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum endereço encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /classes:
+    get:
+      tags:
+      - classes
+      summary: Retorna as classes de carros cadastradas
+      operationId: getClasses
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Classe'
+        400:
+          description: Nenhuma classe encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - classes
+      summary: Cria uma classe
+      description: Cria uma classe na base de dados.
+      operationId: createClasse
+      requestBody:
+        description: Objeto classe
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Classe'
+        required: true
+      responses:
+        200:
+          description: Classe criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        400:
+          description: Erro ao inserir classe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /classes/{id}:
+    get:
+      tags:
+      - classes
+      summary: Retorna a classe com o Id informado
+      operationId: getClasse
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        404:
+          description: Nenhuma classe encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - classes
+      summary: Atualizar os dados da classe
+      operationId: updateClasse
+      parameters:
+      - name: id
+        in: path
+        description: Id da classe que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classe'
+        required: true
+      responses:
+        200:
+          description: Classe atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        400:
+          description: Erro ao atualizar classe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma classe encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - classes
+      summary: Exclui a classe com o Id informado
+      operationId: deleteClasse
+      parameters:
+      - name: id
+        in: path
+        description: Id da classe que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Classe excluída com sucesso
+        400:
+          description: Erro ao excluir classe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma classe encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /marcas:
+    get:
+      tags:
+      - marcas
+      summary: Retorna as marcas de carros cadastradas
+      operationId: getMarcas
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Marca'
+        400:
+          description: Nenhuma marca encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - marcas
+      summary: Cria uma marca
+      description: Cria uma marca na base de dados.
+      operationId: createMarca
+      requestBody:
+        description: Objeto marca
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Marca'
+        required: true
+      responses:
+        200:
+          description: Marca criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+        400:
+          description: Erro ao inserir marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /marcas/{id}:
+    get:
+      tags:
+      - marcas
+      summary: Retorna a marca com o Id informado
+      operationId: getMarca
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+        404:
+          description: Nenhuma marca encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - marcas
+      summary: Atualizar os dados da marca
+      operationId: updateMarca
+      parameters:
+      - name: id
+        in: path
+        description: Id da marca que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marca'
+        required: true
+      responses:
+        200:
+          description: Marca atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+        400:
+          description: Erro ao atualizar marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma marca encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - marcas
+      summary: Exclui a marca com o Id informado
+      operationId: deleteMarca
+      parameters:
+      - name: id
+        in: path
+        description: Id da marca que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Marca excluída com sucesso
+        400:
+          description: Erro ao excluir marca
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma marca encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /filiais:
+    get:
+      tags:
+      - filiais
+      summary: Retorna as filiais cadastradas
+      operationId: getFiliais
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Filial'
+        400:
+          description: Nenhuma filial encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - filiais
+      summary: Cria uma filial
+      description: Cria uma filial na base de dados.
+      operationId: createFilial
+      requestBody:
+        description: Objeto filial
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Filial'
+        required: true
+      responses:
+        200:
+          description: Filial criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filial'
+        400:
+          description: Erro ao inserir filial
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /filiais/{id}:
+    get:
+      tags:
+      - filiais
+      summary: Retorna a filial com o Id informado
+      operationId: getFilial
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filial'
+        404:
+          description: Nenhuma filial encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - filiais
+      summary: Atualizar os dados da filial
+      operationId: updateFilial
+      parameters:
+      - name: id
+        in: path
+        description: Id da filial que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Filial'
+        required: true
+      responses:
+        200:
+          description: Filial atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filial'
+        400:
+          description: Erro ao atualizar filial
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma filial encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - filiais
+      summary: Exclui a filial com o Id informado
+      operationId: deleteFilial
+      parameters:
+      - name: id
+        in: path
+        description: Id da filial que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Filial excluída com sucesso
+        400:
+          description: Erro ao excluir filial
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma filial encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /pessoas:
+    get:
+      tags:
+      - pessoas
+      summary: Retorna as pessoas cadastradas
+      operationId: getPessoas
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pessoa'
+        400:
+          description: Nenhuma pessoa encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - pessoas
+      summary: Cria uma pessoa
+      description: Cria uma pessoa na base de dados.
+      operationId: createPessoa
+      requestBody:
+        description: Objeto pessoa
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+        required: true
+      responses:
+        200:
+          description: Pessoa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+        400:
+          description: Erro ao inserir pessoa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /pessoas/{id}:
+    get:
+      tags:
+      - pessoas
+      summary: Retorna a pessoa com o Id informado
+      operationId: getPessoa
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+        404:
+          description: Nenhuma pessoa encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - pessoas
+      summary: Atualizar os dados da pessoa
+      operationId: updatePessoa
+      parameters:
+      - name: id
+        in: path
+        description: Id da pessoa que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+        required: true
+      responses:
+        200:
+          description: Pessoa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+        400:
+          description: Erro ao atualizar pessoa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma pessoa encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - pessoas
+      summary: Exclui a pessoa com o Id informado
+      operationId: deletePessoa
+      parameters:
+      - name: id
+        in: path
+        description: Id da pessoa que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Pessoa excluída com sucesso
+        400:
+          description: Erro ao excluir pessoa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma pessoa encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /tipos:
+    get:
+      tags:
+      - tipos
+      summary: Retorna os tipos de pessoas cadastradas
+      operationId: getTipos
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TipoPessoa'
+        400:
+          description: Nenhum tipo encontrado
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - tipos
+      summary: Cria um tipo de pessoas
+      description: Cria um tipo de pessoas na base de dados.
+      operationId: createTipo
+      requestBody:
+        description: Objeto tipo de pessoa
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/TipoPessoa'
+        required: true
+      responses:
+        200:
+          description: Tipo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoPessoa'
+        400:
+          description: Erro ao inserir tipo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /tipos/{id}:
+    get:
+      tags:
+      - tipos
+      summary: Retorna o tipo com o Id informado
+      operationId: getTipo
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoPessoa'
+        404:
+          description: Nenhum tipo encontrado para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - tipos
+      summary: Atualizar os dados do tipo
+      operationId: updateTipo
+      parameters:
+      - name: id
+        in: path
+        description: Id do tipo que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoPessoa'
+        required: true
+      responses:
+        200:
+          description: Tipo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoPessoa'
+        400:
+          description: Erro ao atualizar tipo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum tipo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - tipos
+      summary: Exclui o tipo com o Id informado
+      operationId: deleteTipo
+      parameters:
+      - name: id
+        in: path
+        description: Id do tipo que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Tipo excluído com sucesso
+        400:
+          description: Erro ao excluir tipo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum tipo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /grupos:
+    get:
+      tags:
+      - grupos
+      summary: Retorna os grupos de pessoas cadastradas
+      operationId: getGrupos
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GrupoPessoa'
+        400:
+          description: Nenhum grupo encontrado
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - grupos
+      summary: Cria um grupo de pessoas
+      description: Cria um grupo de pessoas na base de dados.
+      operationId: createGrupo
+      requestBody:
+        description: Objeto grupo de pessoa
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/GrupoPessoa'
+        required: true
+      responses:
+        200:
+          description: Grupo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrupoPessoa'
+        400:
+          description: Erro ao inserir grupo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /grupos/{id}:
+    get:
+      tags:
+      - grupos
+      summary: Retorna o grupo com o Id informado
+      operationId: getGrupo
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+        404:
+          description: Nenhuma pessoa encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - grupos
+      summary: Atualizar os dados do grupo
+      operationId: updateGrupo
+      parameters:
+      - name: id
+        in: path
+        description: Id do grupo que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrupoPessoa'
+        required: true
+      responses:
+        200:
+          description: Grupo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrupoPessoa'
+        400:
+          description: Erro ao atualizar grupo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum grupo encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - grupos
+      summary: Exclui o grupo com o Id informado
+      operationId: deleteGrupo
+      parameters:
+      - name: id
+        in: path
+        description: Id do grupo que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Grupo excluído com sucesso
+        400:
+          description: Erro ao excluir grupo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum grupo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /locacoes:
+    get:
+      tags:
+      - locacoes
+      summary: Retorna as locações cadastradas
+      operationId: getLocacoes
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Locacao'
+        400:
+          description: Nenhuma locação encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - locacoes
+      summary: Cria uma locação
+      description: Cria uma locação na base de dados.
+      operationId: createLocacao
+      requestBody:
+        description: Objeto locação
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Locacao'
+        required: true
+      responses:
+        200:
+          description: Locação criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Locacao'
+        400:
+          description: Erro ao inserir locação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /locacoes/{id}:
+    get:
+      tags:
+      - locacoes
+      summary: Retorna a locação com o Id informado
+      operationId: getLocacao
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Locacao'
+        404:
+          description: Nenhuma locação encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - locacoes
+      summary: Atualizar os dados da locação
+      operationId: updateLocacao
+      parameters:
+      - name: id
+        in: path
+        description: Id da locação que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Locacao'
+        required: true
+      responses:
+        200:
+          description: Locação atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Locacao'
+        400:
+          description: Erro ao atualizar locação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma locação encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - locacoes
+      summary: Exclui a locação com o Id informado
+      operationId: deleteLocacao
+      parameters:
+      - name: id
+        in: path
+        description: Id da locação que irá ser excluída
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Locação excluída com sucesso
+        400:
+          description: Erro ao excluir locação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma locação encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /status:
+    get:
+      tags:
+      - status
+      summary: Retorna os status cadastradas
+      operationId: getAllStatus
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+        400:
+          description: Nenhum status encontrado
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - status
+      summary: Cria um status
+      description: Cria um status na base de dados.
+      operationId: createStatus
+      requestBody:
+        description: Objeto status
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Status'
+        required: true
+      responses:
+        200:
+          description: Status criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        400:
+          description: Erro ao inserir status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /status/{id}:
+    get:
+      tags:
+      - status
+      summary: Retorna o status com o Id informado
+      operationId: getStatus
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        404:
+          description: Nenhum status encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - status
+      summary: Atualizar os dados do status
+      operationId: updateStatus
+      parameters:
+      - name: id
+        in: path
+        description: Id do status que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Status'
+        required: true
+      responses:
+        200:
+          description: Status atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        400:
+          description: Erro ao atualizar status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum status encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - status
+      summary: Exclui o status com o Id informado
+      operationId: deleteStatus
+      parameters:
+      - name: id
+        in: path
+        description: Id do status que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Status excluído com sucesso
+        400:
+          description: Erro ao excluir status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum status encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /precos:
+    get:
+      tags:
+      - precos
+      summary: Retorna os preços cadastrados
+      operationId: getPrecos
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Preco'
+        400:
+          description: Nenhum preço encontrado
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - precos
+      summary: Cria um preço
+      description: Cria um preço na base de dados.
+      operationId: createPreco
+      requestBody:
+        description: Objeto preco
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Preco'
+        required: true
+      responses:
+        200:
+          description: Preço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preco'
+        400:
+          description: Erro ao inserir preço
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /precos/{id}:
+    get:
+      tags:
+      - precos
+      summary: Retorna o preço com o Id informado
+      operationId: getPreco
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preco'
+        404:
+          description: Nenhum preço encontrado para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - precos
+      summary: Atualizar os dados do preço
+      operationId: updatPreeco
+      parameters:
+      - name: id
+        in: path
+        description: Id do preço que irá ser alterado
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preco'
+        required: true
+      responses:
+        200:
+          description: Preço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preco'
+        400:
+          description: Erro ao atualizar preço
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum preço encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - precos
+      summary: Exclui o preço com o Id informado
+      operationId: deletePreco
+      parameters:
+      - name: id
+        in: path
+        description: Id do preço que irá ser excluído
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Preço excluído com sucesso
+        400:
+          description: Erro ao excluir preço
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhum preço encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /politicas:
+    get:
+      tags:
+      - politicas
+      summary: Retorna as políticas de preços cadastradas
+      operationId: getPoliticas
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            default: available
+            enum:
+            - available
+            - pending
+            - sold
+      responses:
+        200:
+          description: status ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Politica'
+        400:
+          description: Nenhuma política encontrada
+          content: {}
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+      - politicas
+      summary: Cria uma política
+      description: Cria uma política na base de dados.
+      operationId: createPolitica
+      requestBody:
+        description: Objeto politica
+        content:
+          application/json::
+            schema:
+              $ref: '#/components/schemas/Politica'
+        required: true
+      responses:
+        200:
+          description: Status criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Politica'
+        400:
+          description: Erro ao inserir política
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /politicas/{id}:
+    get:
+      tags:
+      - politicas
+      summary: Retorna a política com o Id informado
+      operationId: getPolitica
+      parameters:
+      - name: id
+        in: path
+        description: Id informado para busca
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: pesquisa realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Politica'
+        404:
+          description: Nenhuma política encontrada para o Id informado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+      - politicas
+      summary: Atualizar os dados da política
+      operationId: updatePolitica
+      parameters:
+      - name: id
+        in: path
+        description: Id da política que irá ser alterada
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Politica'
+        required: true
+      responses:
+        200:
+          description: Política atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Politica'
+        400:
+          description: Erro ao atualizar política
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma política encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+      - politicas
+      summary: Exclui a política com o Id informado
+      operationId: deletePolitica
+      parameters:
+      - name: id
+        in: path
+        description: Id da política que irá ser excluída
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Política excluída com sucesso
+        400:
+          description: Erro ao excluir política
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: Nenhuma política encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        500:
+          description: Erro interno não identificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /enderecos:
     get:
       tags:
@@ -199,7 +2216,7 @@ paths:
                   $ref: '#/components/schemas/Endereco'
         404:
           description: Nenhum endereço encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -225,7 +2242,7 @@ paths:
                 $ref: '#/components/schemas/Endereco'
         400:
           description: Erro ao inserir endereço
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -257,7 +2274,7 @@ paths:
                 $ref: '#/components/schemas/Endereco'
         404:
           description: Nenhum endereço encontrado para o Id informado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -300,7 +2317,7 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhum endereço encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -327,13 +2344,13 @@ paths:
           description: Endereço excluído com sucesso
         400:
           description: Erro ao excluir endereço
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhum endereço encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -371,14 +2388,14 @@ paths:
                   $ref: '#/components/schemas/Promocao'
         404:
           description: Nenhuma promoção encontrada
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
     post:
       tags:
       - promocoes
-      summary: Cria uma promoção 
+      summary: Cria uma promoção
       description: Cria a promoção  na base de dados.
       operationId: createPromocao
       requestBody:
@@ -397,7 +2414,7 @@ paths:
                 $ref: '#/components/schemas/Promocao'
         400:
           description: Erro ao inserir Promoção
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -429,7 +2446,7 @@ paths:
                 $ref: '#/components/schemas/Promocao'
         404:
           description: Nenhuma promoção encontrada para o Id informado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -465,14 +2482,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Promocao'
         400:
-          description: Erro ao atualizar promoção 
+          description: Erro ao atualizar promoção
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhuma promoção encontrada
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -498,14 +2515,14 @@ paths:
         200:
           description: Promoção excluída com sucesso
         400:
-          description: Erro ao excluir promoção 
-          content: 
+          description: Erro ao excluir promoção
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhuma promoção encontrada
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -543,7 +2560,7 @@ paths:
                   $ref: '#/components/schemas/Telefone'
         404:
           description: Nenhum telefone encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -569,7 +2586,7 @@ paths:
                 $ref: '#/components/schemas/Telefone'
         400:
           description: Erro ao inserir telefone
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -595,7 +2612,7 @@ paths:
                 $ref: '#/components/schemas/Telefone'
         404:
           description: Nenhum telefone encontrado para o Id informado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -638,7 +2655,7 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhum telefone encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -666,13 +2683,13 @@ paths:
           content: {}
         400:
           description: Erro ao excluir telefone
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
           description: Nenhum telefone encontrado
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
@@ -682,508 +2699,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-  /pet/findByStatus:
-    get:
-      tags:
-      - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
-      parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
-            type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        400:
-          description: Invalid status value
-          content: {}
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-  /pet/findByTags:
-    get:
-      tags:
-      - pet
-      summary: Finds Pets by tags
-      description: Muliple tags can be provided with comma separated strings. Use         tag1,
-        tag2, tag3 for testing.
-      operationId: findPetsByTags
-      parameters:
-      - name: tags
-        in: query
-        description: Tags to filter by
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
-            type: string
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        400:
-          description: Invalid tag value
-          content: {}
-      deprecated: true
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-  /pet/{petId}:
-    get:
-      tags:
-      - pet
-      summary: Find pet by ID
-      description: Returns a single pet
-      operationId: getPetById
-      parameters:
-      - name: petId
-        in: path
-        description: ID of pet to return
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        400:
-          description: Invalid ID supplied
-          content: {}
-        404:
-          description: Pet not found
-          content: {}
-      security:
-      - api_key: []
-    post:
-      tags:
-      - pet
-      summary: Updates a pet in the store with form data
-      operationId: updatePetWithForm
-      parameters:
-      - name: petId
-        in: path
-        description: ID of pet that needs to be updated
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Updated name of the pet
-                status:
-                  type: string
-                  description: Updated status of the pet
-      responses:
-        405:
-          description: Invalid input
-          content: {}
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-    delete:
-      tags:
-      - pet
-      summary: Deletes a pet
-      operationId: deletePet
-      parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: petId
-        in: path
-        description: Pet id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        400:
-          description: Invalid ID supplied
-          content: {}
-        404:
-          description: Pet not found
-          content: {}
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-  /pet/{petId}/uploadImage:
-    post:
-      tags:
-      - pet
-      summary: uploads an image
-      operationId: uploadFile
-      parameters:
-      - name: petId
-        in: path
-        description: ID of pet to update
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              properties:
-                additionalMetadata:
-                  type: string
-                  description: Additional data to pass to server
-                file:
-                  type: string
-                  description: file to upload
-                  format: binary
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-  /store/inventory:
-    get:
-      tags:
-      - store
-      summary: Returns pet inventories by status
-      description: Returns a map of status codes to quantities
-      operationId: getInventory
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
-      security:
-      - api_key: []
-  /store/order:
-    post:
-      tags:
-      - store
-      summary: Place an order for a pet
-      operationId: placeOrder
-      requestBody:
-        description: order placed for purchasing the pet
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/Order'
-        required: true
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        400:
-          description: Invalid Order
-          content: {}
-  /store/order/{orderId}:
-    get:
-      tags:
-      - store
-      summary: Find purchase order by ID
-      description: For valid response try integer IDs with value >= 1 and <= 10.         Other
-        values will generated exceptions
-      operationId: getOrderById
-      parameters:
-      - name: orderId
-        in: path
-        description: ID of pet that needs to be fetched
-        required: true
-        schema:
-          maximum: 10
-          minimum: 1
-          type: integer
-          format: int64
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        400:
-          description: Invalid ID supplied
-          content: {}
-        404:
-          description: Order not found
-          content: {}
-    delete:
-      tags:
-      - store
-      summary: Delete purchase order by ID
-      description: For valid response try integer IDs with positive integer value.         Negative
-        or non-integer values will generate API errors
-      operationId: deleteOrder
-      parameters:
-      - name: orderId
-        in: path
-        description: ID of the order that needs to be deleted
-        required: true
-        schema:
-          minimum: 1
-          type: integer
-          format: int64
-      responses:
-        400:
-          description: Invalid ID supplied
-          content: {}
-        404:
-          description: Order not found
-          content: {}
-  /user:
-    post:
-      tags:
-      - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      requestBody:
-        description: Created user object
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        default:
-          description: successful operation
-          content: {}
-  /user/createWithArray:
-    post:
-      tags:
-      - user
-      summary: Creates list of users with given input array
-      operationId: createUsersWithArrayInput
-      requestBody:
-        description: List of user object
-        content:
-          '*/*':
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        default:
-          description: successful operation
-          content: {}
-  /user/createWithList:
-    post:
-      tags:
-      - user
-      summary: Creates list of users with given input array
-      operationId: createUsersWithListInput
-      requestBody:
-        description: List of user object
-        content:
-          '*/*':
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        default:
-          description: successful operation
-          content: {}
-  /user/login:
-    get:
-      tags:
-      - user
-      summary: Logs user into the system
-      operationId: loginUser
-      parameters:
-      - name: username
-        in: query
-        description: The user name for login
-        required: true
-        schema:
-          type: string
-      - name: password
-        in: query
-        description: The password for login in clear text
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-        400:
-          description: Invalid username/password supplied
-          content: {}
-  /user/logout:
-    get:
-      tags:
-      - user
-      summary: Logs out current logged in user session
-      operationId: logoutUser
-      responses:
-        default:
-          description: successful operation
-          content: {}
-  /user/{username}:
-    get:
-      tags:
-      - user
-      summary: Get user by user name
-      operationId: getUserByName
-      parameters:
-      - name: username
-        in: path
-        description: 'The name that needs to be fetched. Use user1 for testing. '
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        400:
-          description: Invalid username supplied
-          content: {}
-        404:
-          description: User not found
-          content: {}
-    put:
-      tags:
-      - user
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-      - name: username
-        in: path
-        description: name that need to be updated
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: Updated user object
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        400:
-          description: Invalid user supplied
-          content: {}
-        404:
-          description: User not found
-          content: {}
-    delete:
-      tags:
-      - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-      - name: username
-        in: path
-        description: The name that needs to be deleted
-        required: true
-        schema:
-          type: string
-      responses:
-        400:
-          description: Invalid username supplied
-          content: {}
-        404:
-          description: User not found
-          content: {}
 components:
   schemas:
     Combustivel:
@@ -1371,115 +2886,6 @@ components:
           $ref: '#/components/schemas/Carro'
         politica:
           $ref: '#/components/schemas/Politica'
-
-    Order:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: integer
-          format: int64
-        quantity:
-          type: integer
-          format: int32
-        shipDate:
-          type: string
-          format: date-time
-        status:
-          type: string
-          description: Order Status
-          enum:
-          - placed
-          - approved
-          - delivered
-        complete:
-          type: boolean
-          default: false
-      xml:
-        name: Order
-    Category:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-      xml:
-        name: Category
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        username:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        phone:
-          type: string
-        userStatus:
-          type: integer
-          description: User Status
-          format: int32
-      xml:
-        name: User
-    Tag:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-      xml:
-        name: Tag
-    Pet:
-      required:
-      - name
-      - photoUrls
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        category:
-          $ref: '#/components/schemas/Category'
-        name:
-          type: string
-          example: doggie
-        photoUrls:
-          type: array
-          xml:
-            name: photoUrl
-            wrapped: true
-          items:
-            type: string
-        tags:
-          type: array
-          xml:
-            name: tag
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Tag'
-        status:
-          type: string
-          description: pet status in the store
-          enum:
-          - available
-          - pending
-          - sold
-      xml:
-        name: Pet
     ApiResponse:
       type: object
       properties:
