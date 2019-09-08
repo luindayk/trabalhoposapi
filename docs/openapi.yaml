@@ -72,7 +72,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Combustivel'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Combustivel'
         404:
           description: Nenhum combustível encontrado
           content: {}
@@ -133,7 +135,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Combustivel'
         404:
-          description: Nenhum endereço encontrado para o Id informado
+          description: Nenhum combustível encontrado para o Id informado
           content:
             application/json:
               schema:
@@ -152,7 +154,7 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id do combustível que irá ser atualizado
+        description: Id do combustível a ser atualizado
         required: true
         schema:
           type: string
@@ -189,7 +191,7 @@ paths:
           type: number
       responses:
         200:
-          description: Combustível deletado com sucesso
+          description: Combustível excluído com sucesso
         400:
           description: Erro ao excluir combustível
           content:
@@ -215,42 +217,62 @@ paths:
       summary: Retorna os carros cadastrados
       operationId: getCarros
       parameters:
-      - in: query
-        name: nome
-        schema:
-          type: string
-        description: Filtrar pelo nome do carro
-      - in: query
-        name: marca
-        schema:
-          type: string
-        description: Filtrar pela marca do carro
-      - in: query
-        name: classe
-        schema:
-          type: string
-        description: Filtrar pela classe do carro
-      - in: query
-        name: offset
-        schema:
-          type: integer
-        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
-      - in: query
-        name: limit
-        schema:
-          type: integer
-        description: Número de itens a serem retornados
+        - in: query
+          name: modelo
+          schema:
+            type: string
+          description: Filtrar carros pelo modelo
+        - in: query
+          name: classe
+          schema:
+            type: string
+          description: Filtrar carro pela classe
+        - in: query
+          name: placa
+          schema:
+            type: string
+          description: Filtrar pela placa do carro
+        - in: query
+          name: cor
+          schema:
+            type: string
+          description: Filtrar carros pela cor
+        - in: query
+          name: combustivel
+          schema:
+            type: string
+          description: Filtrar carros pelo combustível
+        - in: query
+          name: filial
+          schema:
+            type: string
+          description: Filtrar carros pela filial
+        - in: query
+          name: marca
+          schema:
+            type: string
+          description: Filtrar carros pela marca
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Carro'
-        400:
-          description: Invalid status value
+                    $ref: '#/components/schemas/Carro'
+        404:
+          description: Nenhum carro encontrado
           content: {}
         500:
           description: Erro interno não identificado
@@ -422,14 +444,14 @@ paths:
           description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Classe'
-        400:
+        404:
           description: Nenhuma classe encontrada
           content: {}
         500:
@@ -585,31 +607,31 @@ paths:
       summary: Retorna as marcas de carros cadastradas
       operationId: getMarcas
       parameters:
-      - in: query
-        name: nome
-        schema:
-          type: string
-        description: Filtrar pelo nome da marca
-      - in: query
-        name: offset
-        schema:
-          type: integer
-        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
-      - in: query
-        name: limit
-        schema:
-          type: integer
-        description: Número de itens a serem retornados
+        - in: query
+          name: nome
+          schema:
+            type: string
+          description: Filtrar pelo nome da marca
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Marca'
-        400:
+        404:
           description: Nenhuma marca encontrada
           content: {}
         500:
@@ -765,31 +787,36 @@ paths:
       summary: Retorna as filiais cadastradas
       operationId: getFiliais
       parameters:
-      - in: query
-        name: nome
-        schema:
-          type: string
-        description: Filtrar pelo nome da filial
-      - in: query
-        name: offset
-        schema:
-          type: integer
-        description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
-      - in: query
-        name: limit
-        schema:
-          type: integer
-        description: Número de itens a serem retornados
+        - in: query
+          name: nome
+          schema:
+            type: string
+          description: Filtrar filial pelo nome
+        - in: query
+          name: endereco
+          schema:
+            type: string
+          description: Filtrar filial pelo endereço
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Filial'
-        400:
+        404:
           description: Nenhuma filial encontrada
           content: {}
         500:
@@ -945,31 +972,51 @@ paths:
       summary: Retorna as pessoas cadastradas
       operationId: getPessoas
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nome
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar pessoas pelo nome
+        - in: query
+          name: cnh
+          schema:
+            type: string
+          description: Filtrar pessoas pela cnh
+        - in: query
+          name: tipo
+          schema:
+            type: string
+          description: Filtrar pessoas pelo tipo
+        - in: query
+          name: grupo
+          schema:
+            type: string
+          description: Filtrar pessoas pelo grupo
+        - in: query
+          name: endereco
+          schema:
+            type: string
+          description: Filtrar pessoas pelo endereço
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O número de itens a serem ignorados antes de começar a coletar o conjunto de resultados
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens a serem retornados
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Pessoa'
-        400:
+        404:
           description: Nenhuma pessoa encontrada
           content: {}
         500:
@@ -1107,7 +1154,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhuma pessoa encontrado
+          description: Nenhuma pessoa encontrada
           content:
             application/json:
               schema:
@@ -1125,31 +1172,21 @@ paths:
       summary: Retorna os tipos de pessoas cadastradas
       operationId: getTipos
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nome
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar tipos pelo nome
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/TipoPessoa'
-        400:
+        404:
           description: Nenhum tipo encontrado
           content: {}
         500:
@@ -1302,34 +1339,24 @@ paths:
     get:
       tags:
       - grupos
-      summary: Retorna os grupos de pessoas cadastradas
+      summary: Retorna os grupos de pessoas cadastrados
       operationId: getGrupos
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nome
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar grupo pelo nome
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/GrupoPessoa'
-        400:
+        404:
           description: Nenhum grupo encontrado
           content: {}
         500:
@@ -1389,7 +1416,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pessoa'
+                $ref: '#/components/schemas/GrupoPessoa'
         404:
           description: Nenhuma pessoa encontrada para o Id informado
           content:
@@ -1410,7 +1437,7 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id do grupo que irá ser alterada
+        description: Id do grupo que irá ser alterado
         required: true
         schema:
           type: number
@@ -1434,7 +1461,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
         404:
-          description: Nenhum grupo encontrada
+          description: Nenhum grupo encontrado
           content:
             application/json:
               schema:
@@ -1485,31 +1512,51 @@ paths:
       summary: Retorna as locações cadastradas
       operationId: getLocacoes
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: data_retirada
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar locações pela data de retirada
+        - in: query
+          name: data_devolucao
+          schema:
+            type: string
+          description: Filtrar locações pela data de devolução
+        - in: query
+          name: local_retirada
+          schema:
+            type: string
+          description: Filtrar locações pelo local de retirada
+        - in: query
+          name: local_devolucao
+          schema:
+            type: string
+          description: Filtrar locações pelo local de devolução
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: Filtrar locações pelo status
+        - in: query
+          name: pessoa
+          schema:
+            type: string
+          description: Filtrar locações pela pessoa
+        - in: query
+          name: politica
+          schema:
+            type: string
+          description: Filtrar locações pela política
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Locacao'
-        400:
+        404:
           description: Nenhuma locação encontrada
           content: {}
         500:
@@ -1665,31 +1712,21 @@ paths:
       summary: Retorna os status cadastradas
       operationId: getAllStatus
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nome
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar status pelo nome
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Status'
-        400:
+        404:
           description: Nenhum status encontrado
           content: {}
         500:
@@ -1845,31 +1882,21 @@ paths:
       summary: Retorna os preços cadastrados
       operationId: getPrecos
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: classe
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar preço pela classe
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Preco'
-        400:
+        404:
           description: Nenhum preço encontrado
           content: {}
         500:
@@ -2025,31 +2052,26 @@ paths:
       summary: Retorna as políticas de preços cadastradas
       operationId: getPoliticas
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
+        - in: query
+          name: tempo_permanencia
+          schema:
             type: string
-            default: available
-            enum:
-            - available
-            - pending
-            - sold
+          description: Filtrar política pelo tempo de permanência
+        - in: query
+          name: preco
+          schema:
+            type: string
+          description: Filtrar política pelo preço
       responses:
         200:
-          description: status ok
+          description: pesquisa realizada com sucesso
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Politica'
-        400:
+        404:
           description: Nenhuma política encontrada
           content: {}
         500:
@@ -2073,7 +2095,7 @@ paths:
         required: true
       responses:
         200:
-          description: Status criado com sucesso
+          description: Política criada com sucesso
           content:
             application/json:
               schema:
@@ -2205,6 +2227,16 @@ paths:
       summary: Retorna os endereços cadastrados
       operationId: getEnderecos
       parameters:
+        - in: query
+          name: cidade
+          schema:
+            type: string
+          description: Filtrar endereço pela cidade
+        - in: query
+          name: cep
+          schema:
+            type: string
+          description: Filtrar endereço pelo CEP
         - in: query
           name: offset
           schema:
@@ -2378,6 +2410,11 @@ paths:
       operationId: getPromocoes
       parameters:
         - in: query
+          name: percentual
+          schema:
+            type: string
+          description: Filtrar promoções pelo percentual
+        - in: query
           name: offset
           schema:
             type: integer
@@ -2486,7 +2523,7 @@ paths:
         required: true
       responses:
         200:
-          description: Promoção  atualizada com sucesso
+          description: Promoção atualizada com sucesso
           content:
             application/json:
               schema:
@@ -2517,7 +2554,7 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id da promoção  que irá ser excluída
+        description: Id da promoção que irá ser excluída
         required: true
         schema:
           type: number
