@@ -4,8 +4,8 @@ info:
   description: 'API destinada à empresa de locação de automóveis'
   version: 1.0.0
 servers:
-- url: http://willyanluindayk-eval-prod.apigee.net/v1
-- url: http://willyanluindayk-eval-test.apigee.net/v1
+- url: https://brunobrancalhao26-eval-test.apigee.net/v1
+- url: https://brunobrancalhao26-eval-prod.apigee.net/v1
 tags:
 - name: combustiveis
   description: Tipos de combustíveis
@@ -2938,15 +2938,8 @@ components:
         message:
           type: string
   securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: http://petstore.swagger.io/oauth/dialog
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
